@@ -12,18 +12,16 @@ def check_if_the_other_server_is_online(port):
         server_socket.close()
         return True
     except ConnectionRefusedError:
-        print("The other server is offline.")
         return False
     except Exception as e:
-        print(f"Error checking if the other server is online: {e}")
         return False
     
 
 def handle_client_connection(client_socket, port):
     try:
+        print(client_socket)        
         if not realizar_handshake(client_socket):
             return  # Encerra a função se o handshake falhar
-
         # Loop para receber mensagens do cliente e responder
         while True:
             dados_recebidos = client_socket.recv(1024*2)
@@ -57,10 +55,12 @@ def handle_client_connection(client_socket, port):
             mensagem = mensagem.split(" ") # type: ignore
             if check_if_the_other_server_is_online(port):
                 raise Exception("The other server is online.")
+            if port == 8080:
+                print('eai', mensagem)
             response = process_request(mensagem[0], mensagem[1:])
             response_masked = mascarar_dados(response)
             client_socket.send(response_masked)
     except Exception as e:
-        print(f"Erro ao processar a mensagem: {e}")
+        e
     finally:
         client_socket.close()
