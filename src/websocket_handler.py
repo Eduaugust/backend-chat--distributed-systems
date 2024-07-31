@@ -26,7 +26,7 @@ def handle_client_connection(client_socket, port):
 
         # Loop para receber mensagens do cliente e responder
         while True:
-            dados_recebidos = client_socket.recv(1024*2)
+            dados_recebidos = client_socket.recv(1024)
             if not dados_recebidos:
                 break  # Encerra o loop se a conexão for fechada
 

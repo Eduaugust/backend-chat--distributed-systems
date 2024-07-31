@@ -20,7 +20,7 @@ def start_server(host, port):
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Inicia o servidor na porta e host especificados.')
-    parser.add_argument('--host', type=str, default='localhost', help='Host onde o servidor será iniciado. Padrão é "localhost".')
+    parser.add_argument('--host', type=str, default='0.0.0.0', help='Host onde o servidor será iniciado. Padrão é "localhost".')
     parser.add_argument('--port', type=int, default=8080, help='Porta na qual o servidor escutará. Padrão é 8080.')
     return parser.parse_args()
 
