@@ -3,7 +3,6 @@ import hashlib
 
 def realizar_handshake(client_socket):
     request = client_socket.recv(4096).decode('utf-8')  # Aumento do tamanho do buffer
-    # print("Requisição recebida:", request)  # Log da requisição recebida
     if 'Sec-WebSocket-Key: ' in request:
         key = (request.split('Sec-WebSocket-Key: ')[1]).split('\r\n')[0]
         accept_key = base64.b64encode(hashlib.sha1((key + '258EAFA5-E914-47DA-95CA-C5AB0DC85B11').encode('utf-8')).digest()).decode('utf-8')
@@ -14,6 +13,5 @@ def realizar_handshake(client_socket):
         client_socket.send(response.encode('utf-8'))
         return True
     else:
-        print("Pedido de handshake WebSocket inválido.")
         client_socket.close()
         return False
